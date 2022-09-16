@@ -1,0 +1,55 @@
+**DRIVER**
+Class.forName(“driverClass”);
+
+**IMPORTS**
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+**QUERY CON HAVING**
+String query = " SELECT h.IdHabitacion,h.Denominacion,sum(s.Importe) as total,count(s.IdServicio) as cantidad"
+                + " FROM habitaciones h join Servicios s on h.IdHabitacion=s.IdHabitacion"
+                + " GROUP BY h.IdHabitacion,h.Denominacion"
+                + " HAVING count(s.IdServicio) >3";
+
+**JDDBC QUERY**
+
+try ( Connection cnn = DriverManager.getConnection(connString)) {
+    Statement stmt = cnn.createStatement();
+    ResultSet rs = stmt.executeQuery(queryString);
+    while(rs.next()){
+        //mapping
+    }
+}catch (Exception e) {
+    System.out.println(e);
+}
+
+
+**JDBC INSERT**
+ public boolean registrarServicio(Servicio ser) {
+        try ( Connection cnn = DriverManager.getConnection(conexion)) {
+            PreparedStatement ps = cnn.prepareStatement("INSERT INTO SERVICIOS (concepto,idHabitacion,importe) VALUES (? , ? ,?)");
+            ps.setString(1, ser.getConcepto());
+            ps.setInt(2, ser.getHabitacion().getId());
+            ps.setFloat(3, ser.getImporte());
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+
+**CARGAR CBO**
+public void cargarCbo(){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        List<Habitacion> lst = controlador.obtenerHabitaciones();
+
+        for (Habitacion habitacion : lst) {
+            model.addElement(habitacion);
+        }
+        cboHabitacion.setModel(model);
+    }
