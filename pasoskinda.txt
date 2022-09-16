@@ -1,0 +1,71 @@
+crear proyecto ANT
+crear paquetes MVC
+hacer nueva conexion con la nueva db
+agregar jar de conector en Libraries del proyecto
+agregar el class.forname con su try en main
+hacer la ventana principal (nuevo jframe)
+cortar el new del main en la ventana
+borrar el metodo main de ventana
+pegar el new en el ejecutable
+crear los botones para las nuevas ventanas, renombrar
+
+en ventanas:
+this.setLocationRelativeTo(null);
+this.setResizable(false);
+
+crear el model de alta con atributos
+setters getters, constructores, toString
+
+crear controller
+poner los imports
+
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+crear la variable para conexion
+instanciarla en constructor
+
+crear metodo para alta, la conexion va dentro de un try
+
+try(Connection cnn = DriverManager.getConnection(conexion)){
+	//crear el objeto ps o st
+	//blabla
+}
+
+
+crear el metodo para luego cargar el combo en el controller
+
+crear ventana para alta
+cortar el new del main en la ventana alta, borrar main
+pegarlo en el event del boton en VPrincipal
+this.setLocationRelativeTo(null);
+this.setResizable(false);
+instanciar controller en constructor
+crear diseño alta segun bd
+para combobox, a la derecha quitar los items del model
+
+crear metodo cargarCombo
+
+        List<Paciente> pacientes = controller.leerPacientes();
+        if(pacientes.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Error al cargar pacientes","Error",JOptionPane.ERROR_MESSAGE);
+        } else {
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            for (Paciente p : pacientes) {
+            model.addElement(p);
+            }
+            cboPaciente.setModel(model);
+        } 
+
+crear ventana para reporte
+si hay tabla
+
+DefaultTableModel model = new DefaultTableModel();
+model.setColumnIdentifiers(new String[]{"Id", "Denominacion","Suma"});
+for (HabitacionReporteDTO x : ls) {
+     model.addRow(new Object[]{x.getId(), x.getDenominacion(),x.getTotal()});
+}
+jtReporte2.setModel(model);
